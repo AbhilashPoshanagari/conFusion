@@ -1,1 +1,1 @@
-This is a Angular course from Coursera.
+This is the Angular course from Coursera.
