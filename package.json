@@ -1,0 +1,21 @@
+{
+  "name": "angular",
+  "version": "1.0.0",
+  "description": "This is the angular course from coursera",
+  "main": "index.html",
+  "scripts": {
+  "start": "npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://abhi_sree@bitbucket.org/abhi_sree/angular.git"
+  },
+  "author": "abhi.sree",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/abhi_sree/angular#readme",
+  "devDependencies": {
+    "lite-server": "^2.5.3"
+  }
+}
