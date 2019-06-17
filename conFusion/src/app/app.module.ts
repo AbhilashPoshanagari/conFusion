@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
 import { MenuComponent } from './menu/menu.component';
-import { DishdetailsComponent } from './menu/dishdetails/dishdetails.component';
+import { DishdetailsComponent } from './dishdetails/dishdetails.component';
 
 @NgModule({
   declarations: [
@@ -33,5 +33,5 @@ import { DishdetailsComponent } from './menu/dishdetails/dishdetails.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
 }
