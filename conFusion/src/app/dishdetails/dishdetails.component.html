@@ -43,6 +43,28 @@
     <p matLine><span> --{{comment.author}} {{comment.date | date}}-- </span>
       </p>
     </mat-list-item>
+    <mat-list-item id = "demo">
+    <p matLine> {{ commentSection.get('rating').value | json }} Stars</p>
+    <p matLine> {{ commentSection.get('comment').value | json }} </p>
+    <p matLine>--{{ commentSection.get('author').value | json }} </p>
+    </mat-list-item>
+      <form novalidate [formGroup]="commentSection" #fform="ngForm" (ngSubmit)="onSubmit()">
+        <p matLine>
+          <mat-form-field class = "full-width">
+            <input matInput formControlName="author" placeholder="Name" type="text">
+            <mat-error *ngIf="formErrors.author">{{ formErrors.author }}</mat-error>
+          </mat-form-field>
+          <mat-slider thumbLabel min = "1" max = "5" formControlName="rating" required></mat-slider>
+          </p>
+          <p matLine>
+            <mat-form-field class="full-width">
+              <textarea matInput formControlName="comment" placeholder="Comment" rows=12></textarea>
+              <mat-error *ngIf="formErrors.comment">{{ formErrors.comment }}</mat-error>
+            </mat-form-field>
+          </p>
+          <button type="submit" mat-button class="background-primary text-floral-white">Submit</button>
+      </form>
   </mat-list>
+
   </div>
 </div>

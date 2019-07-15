@@ -18,6 +18,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSliderModule } from '@angular/material/slider';
+
 
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -65,7 +67,8 @@ import { LoginComponent } from './login/login.component';
     MatSelectModule,
      MatSlideToggleModule,
      ReactiveFormsModule,
-     MatProgressSpinnerModule
+     MatProgressSpinnerModule,
+     MatSliderModule
   ],
   providers: [
     DishService,
