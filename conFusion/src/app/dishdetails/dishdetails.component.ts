@@ -45,7 +45,7 @@ export class DishdetailsComponent implements OnInit {
    }
  };
 
-  @ViewChild('fform') commentSectionDirective;
+  @ViewChild('cform') commentSectionDirective;
 
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
@@ -55,6 +55,7 @@ export class DishdetailsComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.createForm();
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
     .subscribe(dish => { this.dish = dish;
@@ -64,7 +65,7 @@ export class DishdetailsComponent implements OnInit {
   createForm() {
     this.commentSection = this.fb.group({
       author: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
-      rating: ['',[Validators.required, Validators.pattern]],
+      rating: ['5',[Validators.required, Validators.pattern]],
       comment: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(25)]]
     });
     this.commentSection.valueChanges
@@ -74,6 +75,8 @@ export class DishdetailsComponent implements OnInit {
 
   onSubmit() {
     this.comments = this.commentSection.value;
+    this.comments.date = new Date().toISOString();
+    this.dish.comments.push(this.comments);
     console.log(this.comments);
     this.commentSection.reset({
       author: '',

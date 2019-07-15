@@ -43,12 +43,14 @@
     <p matLine><span> --{{comment.author}} {{comment.date | date}}-- </span>
       </p>
     </mat-list-item>
-    <mat-list-item id = "demo">
+    <mat-list *ngIf=commentSection.valid>
+    <mat-list-item>
     <p matLine> {{ commentSection.get('rating').value | json }} Stars</p>
     <p matLine> {{ commentSection.get('comment').value | json }} </p>
-    <p matLine>--{{ commentSection.get('author').value | json }} </p>
+    <p matLine><span>--{{ commentSection.get('author').value | json }} {{ commentSection.status }}</span> </p>
     </mat-list-item>
-      <form novalidate [formGroup]="commentSection" #fform="ngForm" (ngSubmit)="onSubmit()">
+    </mat-list>
+      <form novalidate [formGroup]="commentSection" #cform="ngForm" (ngSubmit)="onSubmit()">
         <p matLine>
           <mat-form-field class = "full-width">
             <input matInput formControlName="author" placeholder="Name" type="text">
