@@ -7,13 +7,26 @@ import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Comment } from "../shared/comment";
 import { DISHES } from "../shared/dishes";
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 
 @Component({
   selector: 'app-dishdetails',
   templateUrl: './dishdetails.component.html',
-  styleUrls: ['./dishdetails.component.scss']
+  styleUrls: ['./dishdetails.component.scss'],
+  animations: [
+    trigger('visibility', [
+        state('shown', style({
+            transform: 'scale(1.0)',
+            opacity: 1
+        })),
+        state('hidden', style({
+            transform: 'scale(0.3)',
+            opacity: 0
+        })),
+        transition('* => *', animate('0.5s ease-in-out'))
+    ])
+  ]
 })
 export class DishdetailsComponent implements OnInit {
   dish: Dish;
@@ -23,6 +36,7 @@ export class DishdetailsComponent implements OnInit {
   dishIds: string[];
  prev: string;
  next: string;
+ visibility = 'shown';
  commentSection: FormGroup;
  formErrors = {
  'author': '',
@@ -42,7 +56,7 @@ export class DishdetailsComponent implements OnInit {
    'comment': {
      'required': 'Comment is required.',
      'minlength': 'Comment must be at least 5 characters long.',
-     'maxlength': 'Comment cannot be more than 25 characters long.'
+     'maxlength': 'Comment cannot be more than 50 characters long.'
    }
  };
 
@@ -59,9 +73,9 @@ export class DishdetailsComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds, errMess => this.errMess = <any>errMess);
-    this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
+    this.route.params.pipe(switchMap((params: Params) =>  { this.visibility = 'hidden'; return this.dishservice.getDish(params['id']); }))
     .subscribe(dish => { this.dish = dish; this.dishcopy = dish;
-      this.setPrevNext(dish.id);
+      this.setPrevNext(dish.id); this.visibility = 'shown';
     },
     errmess => this.errMess = <any>errmess);
   }

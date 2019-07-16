@@ -7,11 +7,20 @@
     fxLayoutGap.xs="0">
 
   <div fxFlex="45" >
-    <div fxFlex *ngIf="dish">
+    <div fxFlex *ngIf="dish" [@visibility] = "visibility">
     <mat-card>
       <mat-card-header>
         <mat-card-title>
-          <h3>{{dish.name | uppercase}}</h3>
+          <h3>
+            <button mat-button [routerLink]="['/dishdetails', prev]">
+              <span class="fa fa-chevron-left fa-lg"></span>
+            </button>
+             {{dish.name | uppercase}} 
+             <span class="flex-spacer"></span>
+          <button mat-button [routerLink]="['/dishdetails', next]">
+            <span class="fa fa-chevron-right fa-lg"></span>
+          </button>
+        </h3>
         </mat-card-title>
       </mat-card-header>
       <img mat-card-image src="{{BaseURL + dish.image}}" alt={{dish.name}}>
@@ -39,7 +48,7 @@
   </div>
 
   <div fxFlex="40" >
-  <mat-list *ngIf="dish">
+  <mat-list *ngIf="dish" [@visibility] = "visibility">
     <h3>Comments</h3>
   <mat-list-item *ngFor="let comment of dish.comments">
     <p matLine> {{comment.rating}} Stars</p>
