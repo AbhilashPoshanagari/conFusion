@@ -17,6 +17,7 @@ import { DISHES } from "../shared/dishes";
 })
 export class DishdetailsComponent implements OnInit {
   dish: Dish;
+  dishcopy: Dish;
   comments: Comment;
   errMess: string;
   dishIds: string[];
@@ -59,9 +60,10 @@ export class DishdetailsComponent implements OnInit {
     this.createForm();
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds, errMess => this.errMess = <any>errMess);
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
-    .subscribe(dish => { this.dish = dish;
+    .subscribe(dish => { this.dish = dish; this.dishcopy = dish;
       this.setPrevNext(dish.id);
-    });
+    },
+    errmess => this.errMess = <any>errmess);
   }
   createForm() {
     this.commentSection = this.fb.group({
@@ -77,7 +79,12 @@ export class DishdetailsComponent implements OnInit {
   onSubmit() {
     this.comments = this.commentSection.value;
     this.comments.date = new Date().toISOString();
-    this.dish.comments.push(this.comments);
+    this.dishcopy.comments.push(this.comments);
+    this.dishservice.putDish(this.dishcopy)
+      .subscribe(dish => {
+        this.dish = dish; this.dishcopy = dish;
+      },
+      errMess => { this.dish = null; this.dishcopy = null; this.errMess = <any>errMess; });
     console.log(this.comments);
     this.commentSection.reset({
       author: '',
